@@ -4,6 +4,7 @@
   "description": "Frontend for bakednsmoked",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +18,10 @@
   },
   "homepage": "https://github.com/bakednsmoked/bakednsmoked#readme",
   "devDependencies": {
-    "bootstrap": "^5.2.2"
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "bootstrap": "^5.2.2",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.3"
   }
 }
