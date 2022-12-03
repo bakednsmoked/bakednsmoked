@@ -1,8 +1,7 @@
 """App factory"""
+import threading
 from flask import Flask
 
-import asyncio
-import threading
 
 def create_app(testing=False):
     """Initialize flask app"""
@@ -24,6 +23,7 @@ def create_app(testing=False):
         app.register_blueprint(stock.stock_bp)
 
         from .ws import start_ws
+
         ws_thread = threading.Thread(target=start_ws)
         ws_thread.start()
 

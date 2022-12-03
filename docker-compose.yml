@@ -1,0 +1,37 @@
+version: '3'
+services:
+  backend:
+    build: 
+      context: "./backend"
+    networks:
+      - backnet
+    expose:
+      - 5000
+      - 21134
+  frontend:
+    build: 
+      context: "./frontend"
+    volumes:
+      - site-bundle:/app
+    depends_on:
+      - backend
+  server:
+    depends_on:
+      - frontend
+    build:
+      context: "./nginx"
+    volumes:
+      - site-bundle:/usr/share/nginx/html
+    networks:
+      - backnet
+    ports:
+      - 80:80
+
+
+networks:
+  backnet:
+    
+volumes:
+  site-bundle:
+    
+  
