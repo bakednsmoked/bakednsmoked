@@ -1,37 +1,47 @@
 version: '3'
 services:
   backend:
-    build: 
+    container_name: 
+      "backend"
+    build:
       context: "./backend"
+    expose:
+      - "5000"
+      - "21134"
     networks:
       - backnet
-    expose:
-      - 5000
-      - 21134
   frontend:
-    build: 
+    container_name: "frontend"
+    build:
       context: "./frontend"
     volumes:
       - site-bundle:/app
     depends_on:
       - backend
+    env_file:
+      - ./.env
+    environment:
+      - NODE_ENV=${NODE_ENV}
   server:
+    container_name: 
+      "server"
     depends_on:
       - frontend
     build:
       context: "./nginx"
     volumes:
       - site-bundle:/usr/share/nginx/html
+    ports:
+      - "8030:8030"
     networks:
       - backnet
-    ports:
-      - 80:80
+    env_file:
+      - ./.env
+    environment:
+      - NODE_ENV=${NODE_ENV}
 
-
+volumes:
+  site-bundle: {}
 networks:
   backnet:
-    
-volumes:
-  site-bundle:
-    
-  
+    driver: bridge

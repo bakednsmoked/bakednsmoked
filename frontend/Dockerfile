@@ -1,4 +1,4 @@
-FROM node:19-slim as build
+FROM node:19-alpine as build
 
 WORKDIR /app
 
@@ -8,9 +8,8 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
+RUN NODE_ENV=production npm run build
 
-FROM node:alpine3.15
-
+FROM node:19-alpine
 WORKDIR /app
-COPY --from=build /app/dist /app 
+COPY --from=build /app/dist /app

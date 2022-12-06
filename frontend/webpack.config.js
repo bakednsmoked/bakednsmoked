@@ -12,17 +12,20 @@ const stylesHandler = MiniCssExtractPlugin.loader;
 
 
 const config = {
+
     entry: './src/index.ts',
+    devtool: "source-map",
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: "bundle.js",
-
     },
     devServer: {
         open: true,
         host: 'localhost',
     },
     plugins: [
+
+
         new HtmlWebpackPlugin({
             template: 'index.html',
             favicon: 'assets/favicon.ico'
@@ -32,6 +35,7 @@ const config = {
 
         // Add your plugins here
         // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+        
     ],
     module: {
         rules: [
@@ -58,14 +62,14 @@ const config = {
     },
 };
 
-module.exports = () => {
+module.exports = (env) => {
     if (isProduction) {
         config.mode = 'production';
-
+        
 
     } else {
         config.mode = 'development';
     }
-
+    env.mode = config.mode;
     return config;
 };
