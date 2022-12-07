@@ -1,7 +1,10 @@
 """App factory"""
-import threading
+
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+
+db = SQLAlchemy()
 
 
 def create_app(testing=False):
@@ -16,17 +19,11 @@ def create_app(testing=False):
         app.config.from_object("config.TestConfig")
 
     with app.app_context():
-        from .db import init_db
-
-        init_db()
+    
+        db.init_app(app)
 
         from .routes import stock
 
         app.register_blueprint(stock.stock_bp)
-
-        from .ws import start_ws
-
-        ws_thread = threading.Thread(target=start_ws)
-        ws_thread.start()
 
     return app

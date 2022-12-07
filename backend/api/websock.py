@@ -19,7 +19,7 @@ async def handler(websocket: WebSocketServerProtocol):
             msg = await websocket.recv()
 
             print(f"Message from client: {msg}")
-            await websocket.send("Hello")
+            await websocket.send("Hello from websocket")
         except WebSocketException as ws_err:
             print(ws_err)
             err = ws_err
